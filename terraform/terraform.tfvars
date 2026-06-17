@@ -1,0 +1,6 @@
+proxmox_api_url = ""
+proxmox_user    = ""
+proxmox_token   = ""
+ssh_public_key  = ""
+node_name       = ""
+net_ip_cidr     = ""

@@ -1,0 +1,32 @@
+---
+- name: "Configure VM"
+  hosts: terraform_vms
+  become: true
+  vars:
+    # Add vars here
+  tasks:
+
+    - name: "Wait for SSH to become reachable"
+      ansible.builtin.wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        timeout: 300
+        state: started
+
+    - name: "Gather facts"
+      ansible.builtin.setup:
+
+    - name: "Upgrade all packages (Debian/Ubuntu)"
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: "Install a few useful utilities"
+      ansible.builtin.apt:
+        name:
+          - curl
+          - htop
+          - vim
+          - git
+        state: present
